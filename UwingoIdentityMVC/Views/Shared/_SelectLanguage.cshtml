@@ -1,0 +1,33 @@
+﻿@using Microsoft.AspNetCore.Builder;
+@using Microsoft.AspNetCore.Localization;
+@using Microsoft.AspNetCore.Http.Features;
+@using Microsoft.AspNetCore.Mvc.Localization;
+@using Microsoft.Extensions.Options;
+<link href="~/assets/css/flag.css" rel="stylesheet" />
+@inject IViewLocalizer localizer
+@inject IOptions<RequestLocalizationOptions> options
+
+@{
+    var requestCulture = Context.Features.Get<IRequestCultureFeature>();
+    var cultures = options.Value.SupportedUICultures
+        .Select(c => new SelectListItem { Value = c.Name, Text = c.NativeName })
+        .ToList();
+    var returnUrl = string.IsNullOrEmpty(Context.Request.Path) ? "~/" : $"~{Context.Request.Path.Value}";
+}
+
+<li class="nav-item">
+    <div class="nav-wrapper">
+        <div class="sl-nav">
+            <ul>
+                <li>
+                    <b></b> <i class="fa fa-angle-down" aria-hidden="true"></i>
+                    <ul>
+                        <li><a href="@Url.Action("SetLanguage","Home",new{culture="tr-TR",returnUrl=@returnUrl})">TR</a></li>
+                        <li><a href="@Url.Action("SetLanguage","Home",new{culture="en-US",returnUrl=@returnUrl})">EN</a></li>
+                        <li><a href="@Url.Action("SetLanguage","Home",new{culture="kr-KR",returnUrl=@returnUrl})">KR</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</li>

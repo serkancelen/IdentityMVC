@@ -1,0 +1,187 @@
+﻿@{
+    Layout = string.Empty;
+}
+@model RoleDto
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>@Localizer["IdentityTitle"]</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+    <meta content="" name="author" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="~/images/uwingoIco.ico">
+
+    <!-- App css -->
+    <link href="~/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/app.min.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body class="account-body accountbg">
+
+    <!-- Log In page -->
+    <div class="container">
+        <div class="row vh-100 d-flex justify-content-center">
+            <div class="col-12 align-self-center">
+                <div class="row">
+                    <div class="col-lg-5 mx-auto">
+                        <div class="card">
+                            <div class="card-body p-0 auth-header-box">
+                                <div class="text-center p-3">
+                                    <a href="index.html" class="logo logo-admin">
+                                        <img src="~/images/uwingoLogo.jpg" height="50" alt="logo" class="auth-logo">
+                                    </a>
+                                    <h4 class="mt-3 mb-1 fw-semibold text-white font-18">@Localizer["WelcomeText"]</h4>
+                                    <p class="text-muted mb-0">@Localizer["SignInText"]</p>
+                                </div>
+                            </div>
+                            <div class="card-body p-0">
+                                <ul class="nav-border nav nav-pills" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active fw-semibold" data-bs-toggle="tab" href="#LogIn_Tab" role="tab">@Localizer["LogIn"]</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link fw-semibold" data-bs-toggle="tab" href="#Register_Tab" role="tab">@Localizer["Register"]</a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div class="tab-pane active p-3" id="LogIn_Tab" role="tabpanel">
+                                        <form class="form-horizontal auth-form" asp-action="Login">
+                                            <div class="form-group mb-2">
+                                                <label class="form-label" for="username">@Localizer["Username"]</label>
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" name="username" id="username" placeholder="@Localizer["EnterUsername"]" required>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group mb-2">
+                                                <label class="form-label" for="userpassword">@Localizer["Password"]</label>
+                                                <div class="input-group">
+                                                    <input type="password" class="form-control" name="password" id="userpassword" placeholder="@Localizer["EnterPassword"]" required>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row my-3">
+                                                <div class="col-sm-6">
+                                                    <div class="custom-control custom-switch switch-success">
+                                                        <input type="checkbox" class="custom-control-input" id="customSwitchSuccess">
+                                                        <label class="form-label text-muted" for="customSwitchSuccess">@Localizer["RememberMe"]</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6 text-end">
+                                                    <a asp-action="ForgotPassword" class="text-muted font-13">@Localizer["ForgotPassword"]</a>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group mb-0 row">
+                                                <div class="col-12">
+                                                    <button class="btn btn-primary w-100 waves-effect waves-light" type="submit">@Localizer["LogInButton"] <i class="fas fa-sign-in-alt ms-1"></i></button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                        <div class="m-3 text-center text-muted">
+                                            <p class="mb-0">@Localizer["NoAccount"] <a asp-action="Register" class="text-primary ms-2">@Localizer["FreeRegister"]</a></p>
+                                        </div>
+                                        <div class="account-social">
+                                            <h6 class="mb-3">@Localizer["OrLoginWith"]</h6>
+                                        </div>
+                                        <div class="btn-group w-100">
+                                            <button type="button" class="btn btn-sm btn-outline-secondary">@Localizer["Facebook"]</button>
+                                            <button type="button" class="btn btn-sm btn-outline-secondary">@Localizer["Twitter"]</button>
+                                            <button type="button" class="btn btn-sm btn-outline-secondary">@Localizer["Google"]</button>
+                                        </div>
+                                    </div>
+
+                                    <div class="tab-pane p-3" id="Register_Tab" role="tabpanel">
+                                        <form class="form-horizontal auth-form" asp-action="Register">
+                                            <div class="form-group mb-2">
+                                                <label class="form-label" for="registerUsername">@Localizer["Username"]</label>
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" name="username" id="registerUsername" placeholder="@Localizer["EnterUsername"]" required>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group mb-2">
+                                                <label class="form-label" for="useremail">@Localizer["Email"]</label>
+                                                <div class="input-group">
+                                                    <input type="email" class="form-control" name="email" id="useremail" placeholder="@Localizer["EnterEmail"]" required>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group mb-2">
+                                                <label class="form-label" for="userpassword">@Localizer["Password"]</label>
+                                                <div class="input-group">
+                                                    <input type="password" class="form-control" name="password" id="userpassword" placeholder="@Localizer["EnterPassword"]" required>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group mb-2">
+                                                <label class="form-label" for="conf_password">@Localizer["ConfirmPassword"]</label>
+                                                <div class="input-group">
+                                                    <input type="password" class="form-control" name="conf-password" id="conf_password" placeholder="@Localizer["ConfirmPassword"]" required>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group mb-2">
+                                                <label class="form-label" for="mo_number">@Localizer["MobileNumber"]</label>
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" name="mobileNumber" id="mo_number" placeholder="@Localizer["EnterMobileNumber"]" required>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-floating mb-2">
+                                                <select class="form-select" id="roleSelect" name="role" required>
+                                                    <option selected disabled>@Localizer["SelectRole"]</option>
+                                                    <option value="1">@Localizer["RoleOne"]</option>
+                                                    <option value="2">@Localizer["RoleTwo"]</option>
+                                                    <option value="3">@Localizer["RoleThree"]</option>
+                                                </select>
+                                                <label for="roleSelect">@Localizer["WorksWithSelects"]</label>
+                                            </div>
+
+                                            <div class="form-group row my-3">
+                                                <div class="col-sm-12">
+                                                    <div class="custom-control custom-switch switch-success">
+                                                        <input type="checkbox" class="custom-control-input" id="customSwitchSuccess2" required>
+                                                        <label class="form-label text-muted" for="customSwitchSuccess2">@Localizer["AgreeTerms"]</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group mb-0 row">
+                                                <div class="col-12">
+                                                    <button class="btn btn-primary w-100 waves-effect waves-light" type="submit">@Localizer["RegisterButton"] <i class="fas fa-sign-in-alt ms-1"></i></button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                        <p class="my-3 text-muted">@Localizer["AlreadyHaveAccount"] <a asp-action="Login" class="text-primary ms-2">@Localizer["LogIn"]</a></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body bg-light-alt text-center">
+                                <span class="text-muted d-none"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Log In page -->
+    <!-- jQuery  -->
+    <script src="~/js/jquery.min.js"></script>
+    <script src="~/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/waves.js"></script>
+    <script src="~/js/feather.min.js"></script>
+    <script src="~/js/simplebar.min.js"></script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,20 @@
+﻿@model ApplicationDto
+
+@{
+    ViewBag.Title = "Uygulama Oluştur";
+}
+
+<h2>Uygulama Oluştur</h2>
+
+<form id="createApplicationForm" asp-action="Create">
+    <div class="form-group">
+        <label for="Name">@Localizer["Ad"]</label>
+        <input type="text" class="form-control" id="Name" name="Name" required />
+    </div>
+    <div class="form-group">
+        <label for="DbConnection">@Localizer["Veritabanı Bağlantısı"]</label>
+        <input type="text" class="form-control" id="DbConnection" name="DbConnection" required />
+    </div>
+    <button type="submit" class="btn btn-primary">@Localizer["Oluştur"]</button>
+    <a asp-action="Index" class="btn btn-secondary">@Localizer["İptal"]</a>
+</form>

@@ -1,0 +1,239 @@
+﻿@* @model UserDto
+
+@{
+    ViewBag.Title = "Kullanıcı Düzenle";
+}
+
+<h2>Kullanıcı Düzenle</h2>
+
+    <div class="form-group">
+        <label for="UserName">Kullanıcı Adı</label>
+        <input type="text" class="form-control" id="UserName" name="UserName" value="@Model.UserName" required />
+    </div>
+    <div class="form-group">
+        <label for="FirstName">Ad</label>
+        <input type="text" class="form-control" id="FirstName" name="FirstName" value="@Model.FirstName" required />
+    </div>
+    <div class="form-group">
+        <label for="LastName">Soyadı</label>
+        <input type="text" class="form-control" id="LastName" name="LastName" value="@Model.LastName" required />
+    </div>
+    <div class="form-group">
+        <label for="PhoneNumber">Telefon Numarası</label>
+        <input type="text" class="form-control" id="PhoneNumber" name="PhoneNumber" value="@Model.PhoneNumber" required />
+    </div>
+    <div class="form-group">
+        <label for="Email">E-posta</label>
+        <input type="email" class="form-control" id="Email" name="Email" value="@Model.Email" required />
+    </div>
+    <div>
+    <input type="text" class="form-control" id="ApplicationId" name="ApplicationId" value="@Model.ApplicationId" style="display:none" />
+    </div>
+    <button type="button" name="button" onclick="myFunc()" id="update" class="btn btn-primary">Güncelle</button>
+    <a asp-action="Index" class="btn btn-secondary">İptal</a>
+
+
+
+@section Scripts {
+    <script>
+        function myFunc() {
+            console.log("girdim");
+            Swal.fire({
+                title: 'Emin misiniz?',
+                text: "Güncelleme işlemi yapmak üzeresiniz!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Evet, Güncelle!',
+                cancelButtonText: 'Hayır, Güncellemeyi İptal Et',
+                reverseButtons: true
+            }).then(function (result) {
+                if (result.isConfirmed) {
+                    // Form verilerini hazırla
+                    var user = {
+                        Id: '@Model.Id',
+                        UserName: document.getElementById("UserName").value,
+                        FirstName: document.getElementById("FirstName").value,
+                        LastName: document.getElementById("LastName").value,
+                        PhoneNumber: document.getElementById("PhoneNumber").value,
+                        Email: document.getElementById("Email").value,
+                        ApplicationId: document.getElementById("ApplicationId").value
+                    };
+
+                    console.log(document.getElementById("UserName").value);
+                    console.log(user.UserName);
+                    // AJAX isteği ile verileri gönder
+                    $.ajax({
+                        url: '@Url.Action("Edit", "User")',
+                        type: 'POST',
+                        data: JSON.stringify(user),
+                        contentType: 'application/json',
+                        success: function (response) {
+                            Swal.fire(
+                                'Güncellendi!',
+                                'Güncelleme başarıyla tamamlandı.',
+                                'success'
+                            ).then(() => {
+                                window.location.href = '@Url.Action("Index", "User")';
+                            });
+                        },
+                        error: function () {
+                            Swal.fire(
+                                'Hata!',
+                                'Güncelleme sırasında bir hata oluştu.',
+                                'error'
+                            );
+                        }
+                    });
+                }
+            });
+        }
+    </script>
+}
+ *@
+
+@model UserDto
+
+@{
+    ViewBag.Title = "Kullanıcı Düzenle";
+}
+
+<h2>Kullanıcı Düzenle</h2>
+
+<div class="form-group">
+    <label for="UserName">Kullanıcı Adı</label>
+    <input type="text" class="form-control" id="UserName" name="UserName" value="@Model.UserName" required />
+</div>
+<div class="form-group">
+    <label for="FirstName">Ad</label>
+    <input type="text" class="form-control" id="FirstName" name="FirstName" value="@Model.FirstName" required />
+</div>
+<div class="form-group">
+    <label for="LastName">Soyadı</label>
+    <input type="text" class="form-control" id="LastName" name="LastName" value="@Model.LastName" required />
+</div>
+<div class="form-group">
+    <label for="PhoneNumber">Telefon Numarası</label>
+    <input type="text" class="form-control" id="PhoneNumber" name="PhoneNumber" value="@Model.PhoneNumber" required />
+</div>
+<div class="form-group">
+    <label for="Email">E-posta</label>
+    <input type="email" class="form-control" id="Email" name="Email" value="@Model.Email" required />
+</div>
+<div>
+    <input type="text" class="form-control" id="ApplicationId" name="ApplicationId" value="@Model.ApplicationId" style="display:none" />
+</div>
+<button type="button" name="button" onclick="myFunc()" id="update" class="btn btn-primary">Güncelle</button>
+<a asp-action="Index" class="btn btn-secondary">İptal</a>
+<button type="button" class="btn btn-info" onclick="openClaimsModal()">Yetkileri Düzenle</button>
+
+<!-- Yetkileri Düzenle Modalı -->
+<div id="claimsModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Yetkileri Düzenle</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Yetkiler (UserClaims) Form Alanları -->
+                <div class="form-group">
+                    <label for="ClaimType">Yetki Tipi</label>
+                    <input type="text" class="form-control" id="ClaimType" name="ClaimType" required />
+                </div>
+                <div class="form-group">
+                    <label for="ClaimValue">Yetki Değeri</label>
+                    <input type="text" class="form-control" id="ClaimValue" name="ClaimValue" required />
+                </div>
+                <button type="button" class="btn btn-primary" onclick="saveClaims()">Kaydet</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function myFunc() {
+            Swal.fire({
+                title: 'Emin misiniz?',
+                text: "Güncelleme işlemi yapmak üzeresiniz!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Evet, Güncelle!',
+                cancelButtonText: 'Hayır, Güncellemeyi İptal Et',
+                reverseButtons: true
+            }).then(function (result) {
+                if (result.isConfirmed) {
+                    var user = {
+                        Id: '@Model.Id',
+                        UserName: document.getElementById("UserName").value,
+                        FirstName: document.getElementById("FirstName").value,
+                        LastName: document.getElementById("LastName").value,
+                        PhoneNumber: document.getElementById("PhoneNumber").value,
+                        Email: document.getElementById("Email").value,
+                        ApplicationId: document.getElementById("ApplicationId").value
+                    };
+
+                    $.ajax({
+                        url: '@Url.Action("Edit", "User")',
+                        type: 'POST',
+                        data: JSON.stringify(user),
+                        contentType: 'application/json',
+                        success: function (response) {
+                            Swal.fire(
+                                'Güncellendi!',
+                                'Güncelleme başarıyla tamamlandı.',
+                                'success'
+                            ).then(() => {
+                                window.location.href = '@Url.Action("Index", "User")';
+                            });
+                        },
+                        error: function () {
+                            Swal.fire(
+                                'Hata!',
+                                'Güncelleme sırasında bir hata oluştu.',
+                                'error'
+                            );
+                        }
+                    });
+                }
+            });
+        }
+
+        function openClaimsModal() {
+            $('#claimsModal').modal('show');
+        }
+
+        function saveClaims() {
+            var claim = {
+                ClaimType: document.getElementById("ClaimType").value,
+                ClaimValue: document.getElementById("ClaimValue").value,
+                UserId: '@Model.Id'
+            };
+
+            $.ajax({
+                url: '@Url.Action("EditClaims", "User")',
+                type: 'POST',
+                data: JSON.stringify(claim),
+                contentType: 'application/json',
+                success: function (response) {
+                    Swal.fire(
+                        'Kaydedildi!',
+                        'Yetkiler başarıyla güncellendi.',
+                        'success'
+                    ).then(() => {
+                        $('#claimsModal').modal('hide');
+                    });
+                },
+                error: function () {
+                    Swal.fire(
+                        'Hata!',
+                        'Yetkileri güncellerken bir hata oluştu.',
+                        'error'
+                    );
+                }
+            });
+        }
+    </script>
+}

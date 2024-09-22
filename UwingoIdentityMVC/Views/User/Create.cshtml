@@ -1,0 +1,113 @@
+﻿@model Tuple<List<ApplicationDto>, List<RoleDto>>
+
+@{
+    ViewBag.Title = "Kullanıcı Ekle";
+}
+
+<h2>@Localizer["Kullanıcı Oluştur"]</h2>
+
+<form class="form-horizontal auth-form" method="post"
+action="/User/Create">
+
+    <div class="form-group mb-2">
+        <label class="form-label" for="firstName">@Localizer["Name"]</label>
+        <div class="input-group">
+            <input type="text" class="form-control" name="firstName"
+            id="firstName" placeholder="Enter name">
+        </div>
+    </div><!--end form-group-->
+
+    <div class="form-group mb-2">
+        <label class="form-label" for="lastName">@Localizer["Surname"]</label>
+        <div class="input-group">
+            <input type="text" class="form-control" name="lastName"
+            id="lastName" placeholder="Enter Surname">
+        </div>
+    </div><!--end form-group-->
+
+    <div class="form-group mb-2">
+        <label class="form-label" for="username">@Localizer["Username"]</label>
+        <div class="input-group">
+            <input type="text" class="form-control" name="username"
+            id="username" placeholder="Enter username">
+        </div>
+    </div><!--end form-group-->
+
+    <div class="form-group mb-2">
+        <label class="form-label" for="useremail">@Localizer["Email"]</label>
+        <div class="input-group">
+            <input type="email" class="form-control" name="email"
+            id="useremail" placeholder="Enter Email">
+        </div>
+    </div><!--end form-group-->
+
+    <div class="form-group mb-2">
+        <label class="form-label" for="userpassword">@Localizer["Password"]</label>
+        <div class="input-group">
+            <input type="password" class="form-control" name="password"
+            id="userpassword" placeholder="Enter password">
+        </div>
+    </div><!--end form-group-->
+
+    <div class="form-group mb-2">
+        <label class="form-label" for="conf_password">@Localizer["Confirm Password"]</label>
+        <div class="input-group">
+            <input type="password" class="form-control" name="conf-password"
+            id="conf_password" placeholder="Enter Confirm Password">
+        </div>
+    </div><!--end form-group-->
+
+    <div class="form-group mb-2">
+        <label class="form-label" for="PhoneNumber">@Localizer["Mobile Number"]</label>
+        <div class="input-group">
+            <input type="text" class="form-control" name="PhoneNumber"
+            id="PhoneNumber" placeholder="Enter Mobile Number">
+        </div>
+    </div><!--end form-group-->
+
+    <!-- Application Dropdown -->
+    <div class="form-group mb-2">
+        <label class="form-label" for="applicationSelect">@Localizer["User's Application"]</label>
+        <select class="form-select select2" name="ApplicationId" id="applicationSelect" required data-placeholder="@Localizer["-- Lütfen Uygulama Seçiniz --"]">
+            <option value=""></option>
+            @foreach (var application in Model.Item1)
+            {
+                <option value="@application.Id">@application.Name</option>
+            }
+        </select>
+    </div>
+
+    <!-- Role Dropdown -->
+    <div class="form-group mb-2">
+        <label class="form-label" for="roleSelect">@Localizer["User's Company Role"]</label>
+        <select class="form-select select2" name="RoleId" id="roleSelect" required data-placeholder="@Localizer["-- Lütfen Kullanıcı Rolünü Seçiniz --"]">
+            <option value=""></option>
+            @foreach (var role in Model.Item2)
+            {
+                <option value="@role.Id">@role.Name</option>
+            }
+        </select>
+    </div>
+
+    <div class="form-group row my-3">
+        <div class="col-sm-12">
+            <div class="custom-control custom-switch switch-success">
+                <input type="checkbox" class="custom-control-input"
+                       id="customSwitchSuccess2">
+                <label class="form-label text-muted"
+                       for="customSwitchSuccess2">
+                    @Localizer["You agree to the Dastone"] <a href="#" class="text-primary">@Localizer["Terms of Use"]</a>
+                </label>
+            </div>
+        </div><!--end col-->
+    </div><!--end form-group-->
+
+    <div class="form-group mb-0 row">
+        <div class="col-12">
+            <button class="btn btn-primary w-100 waves-effect waves-light"
+                    type="submit">
+                @Localizer["Register"] <i class="fas fa-sign-in-alt ms-1"></i>
+            </button>
+        </div><!--end col-->
+    </div> <!--end form-group-->
+</form><!--end form-->

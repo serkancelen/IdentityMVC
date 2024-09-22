@@ -1,0 +1,56 @@
+﻿@model UserDto
+
+@{
+    ViewData["Title"] = "Account Settings";
+}
+
+<div class="container mt-5">
+    <h2>@Localizer["AccountSettings"]</h2>
+
+    <form asp-action="UpdateAccountSettings" method="post">
+        <div class="form-group mb-3">
+            <label for="UserName">@Localizer["Username"]</label>
+            <input type="text" class="form-control" id="UserName" name="UserName" value="@Model.UserName" disabled />
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="CurrentPassword">@Localizer["CurrentPassword"]</label>
+            <input type="password" class="form-control" id="CurrentPassword" name="CurrentPassword" />
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="NewPassword">@Localizer["NewPassword"]</label>
+            <input type="password" class="form-control" id="NewPassword" name="NewPassword" />
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="ConfirmPassword">@Localizer["ConfirmPassword"]</label>
+            <input type="password" class="form-control" id="ConfirmPassword" name="ConfirmPassword" />
+        </div>
+
+        <button type="submit" class="btn btn-primary">@Localizer["UpdateAccountSettings"]</button>
+    </form>
+
+    <hr />
+
+    <h3>@Localizer["NotificationSettings"]</h3>
+
+    <form asp-action="UpdateNotificationSettings" method="post">
+        <div class="form-check mb-3">
+            <input type="checkbox" class="form-check-input" id="EmailNotifications" name="emailNotifications" checked />
+            <label class="form-check-label" for="EmailNotifications">@Localizer["EmailNotifications"]</label>
+        </div>
+
+        <div class="form-check mb-3">
+            <input type="checkbox" class="form-check-input" id="SmsNotifications" name="smsNotifications" />
+            <label class="form-check-label" for="SmsNotifications">@Localizer["SmsNotifications"]</label>
+        </div>
+
+        <div class="form-check mb-3">
+            <input type="checkbox" class="form-check-input" id="PushNotifications" name="pushNotifications" checked />
+            <label class="form-check-label" for="PushNotifications">@Localizer["PushNotifications"]</label>
+        </div>
+
+        <button type="submit" class="btn btn-primary">@Localizer["UpdateNotificationSettings"]</button>
+    </form>
+</div>

@@ -1,0 +1,62 @@
+﻿@model RoleDto
+
+@{
+    ViewBag.Title = "Edit Role";
+}
+
+<h2>@Localizer["EditRole"]</h2>
+
+<div class="form-group">
+    <label for="Name">@Localizer["Name"]</label>
+    <input type="text" class="form-control" id="Name" name="Name" value="@Model.Name" required />
+</div>
+<button type="button" id="button" name="button" onclick="myFunc()" class="btn btn-primary">@Localizer["Update"]</button>
+<a asp-action="Index" class="btn btn-secondary">@Localizer["Cancel"]</a>
+
+@section Scripts {
+    <script>
+        function myFunc() {
+            Swal.fire({
+                title: '@Localizer["AreYouSure"]',
+                text: "@Localizer["AboutToUpdate"]",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: '@Localizer["YesUpdate"]',
+                cancelButtonText: '@Localizer["NoCancel"]',
+                reverseButtons: true
+            }).then(function (result) {
+                if (result.isConfirmed) {
+                    // Form verilerini hazırla
+                    var role = {
+                        Id: '@Model.Id',
+                        Name: document.getElementById("Name").value,
+                    };
+
+                    // AJAX isteği ile verileri gönder
+                    $.ajax({
+                        url: '@Url.Action("Edit", "Role")',
+                        type: 'POST',
+                        data: JSON.stringify(role),
+                        contentType: 'application/json',
+                        success: function () {
+                            Swal.fire(
+                                '@Localizer["Updated"]',
+                                '@Localizer["UpdateSuccess"]',
+                                'success'
+                            ).then(() => {
+                                window.location.href = '@Url.Action("Index", "Role")';
+                            });
+                        },
+                        error: function () {
+                            Swal.fire(
+                                '@Localizer["Error"]',
+                                '@Localizer["UpdateError"]',
+                                'error'
+                            );
+                        }
+                    });
+                }
+            });
+        }
+    </script>
+}
