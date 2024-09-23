@@ -1,5 +1,6 @@
 ﻿using Entity.ModelsDto;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -269,6 +270,16 @@ namespace UwingoIdentityMVC.Controllers
                 return Json(true);
             }
             return Json(false);
+        }
+        public IActionResult SetLanguage(string culture, string returnUrl)
+        {
+            Response.Cookies.Append(
+              CookieRequestCultureProvider.DefaultCookieName,
+              CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
+              new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) }
+              );
+            //return RedirectToAction("Index");
+            return LocalRedirect(returnUrl);
         }
     }
 }
